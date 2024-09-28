@@ -5,7 +5,7 @@ import { RepositoryForksComponent } from './repository-forks.component';
 describe('RepositoryForksComponent', () => {
   let component: RepositoryForksComponent;
   let fixture: ComponentFixture<RepositoryForksComponent>;
-
+  
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RepositoryForksComponent]

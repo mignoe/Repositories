@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+// import * as fs  from 'fs';
 import { distinct,groupBy,orderBy,fold,compose  } from '../../utils';
 
 @Component({
@@ -25,7 +26,7 @@ export class TestPageComponent {
     console.log(distinct(tests, 'id'));
     console.log(groupBy(tests, 'id'));
     console.log(orderBy(tests, 'id'));
-    console.log(fold((acc, test) => acc + test.id, 0, tests));
+    // console.log(fold((acc, test) => acc + test.id, 0, tests));
     // console.log(compose((x) => x + 1, (x) => x + 1)(1));
   }
 
