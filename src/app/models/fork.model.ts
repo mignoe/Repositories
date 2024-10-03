@@ -1,12 +1,7 @@
-export class Owner {
-    constructor(
-      public login: string,
-      public avatar_url: string
-    ) {}
-}
-  
+import { Owner } from './owner.model';
+
 export class Fork {
-constructor(
+  constructor(
     public id: number,
     public full_name: string,
     public html_url: string,
@@ -16,6 +11,5 @@ constructor(
     public forks_count: number,
     public updated_at: string,
     public license?: { name: string } | null
-) {}
+  ) {}
 }
-  
