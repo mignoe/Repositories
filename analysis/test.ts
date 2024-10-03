@@ -1,16 +1,12 @@
+const compose = (...fns: Function[]) => (arg: any) =>
+    fns.reduceRight((acc, fn) => fn(acc), arg);
 
-const fold = <T, U>(reducer: (acc: U, item: T) => U, init: U, array: T[]): U => 
-    array.length != 0 ? fold(reducer, reducer(init, array[0]), array.slice(1)) : init;
+const f1 = (arg: number) => arg * 2;
 
-let inteiros = [1, 2, 3, 4, 5];
+const f2 = (arg: number) => arg + 1;
+const f3 = (arg: number) => arg + 3;
 
-let soma = fold((acc, item) => acc + item, 0, inteiros);
-
-let inversa = fold<number, number[]>((acc: number[], item: number) => [item, ...acc], [], inteiros);
-
-console.log(inversa);
-
-
-console.log(soma);
+const f4 = compose(f1, f2, f3);
 
 console.log([].slice(1));
+console.log(f4(1));
