@@ -1,27 +1,16 @@
-const distinct2 = <T>(colecao: T[], atributo: keyof T): T[] => 
-    [...new Map(colecao.map(item => [item[atributo], item])).values()];
 
-// "[..." == "iterator spread"
+const fold = <T, U>(reducer: (acc: U, item: T) => U, init: U, array: T[]): U => 
+    array.length != 0 ? fold(reducer, reducer(init, array[0]), array.slice(1)) : init;
 
-class Test{
-    id: number;
+let inteiros = [1, 2, 3, 4, 5];
 
-    constructor(id: number){
-        this.id = id;
-    }
-}
+let soma = fold((acc, item) => acc + item, 0, inteiros);
 
-const tests = [new Test(1), new Test(2), new Test(3), new Test(1), new Test(2), new Test(3)];
+let inversa = fold<number, number[]>((acc: number[], item: number) => [item, ...acc], [], inteiros);
 
-let atributo: keyof Test = 'id';
+console.log(inversa);
 
-console.log([new Map(tests.map(item => [item[atributo], item])).values()]);
 
-console.log(distinct2(tests, 'id'));
+console.log(soma);
 
-let idOneTests : Test[]= []
-console.log(tests.reduce((acc, obj) => acc.concat(obj.id == 1 ? obj : []), idOneTests));
-
-let x = [1,2,3,4,5,6,7,8,9,10];
-
-console.log(...[1,2,3,4], [1,2,3])
+console.log([].slice(1));
