@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { distinct, orderBy } from '../../utils';
-import { Fork, Owner } from '../../classes';
-
+import { Fork } from '../../classes';
 import { NgFor, CommonModule } from '@angular/common';
 
 @Component({
@@ -15,30 +14,42 @@ import { NgFor, CommonModule } from '@angular/common';
 export class RepositoryForksComponent {
   repository = "";
   forks: Fork[] = [];
+  page = 1;
+  perPage = 30; // Number of forks per page
 
-  constructor() {
-    // this.repository = "angular/angular";
-    console.log(this.repository);
-  }
+  constructor() {}
 
   search() {
-    console.log(this.repository);
-    const url = "https://api.github.com/repos/" + this.repository + "/forks" // your API URL
+    this.page = 1; // Reset to first page on new search
+    this.fetchForks();
+  }
 
+  fetchForks() {
+    const url = `https://api.github.com/repos/${this.repository}/forks?page=${this.page}&per_page=${this.perPage}`;
 
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        console.log("Fetched data:", data);
         this.forks = distinct(data, "id");
       })
       .catch(error => {
-        console.error("Error fetching the URL:", error);
+        console.error("Error fetching the forks:", error);
       });
   }
 
-  orderForksBy(field : keyof Fork) {
+  orderForksBy(field: keyof Fork) {
     this.forks = orderBy(this.forks, field);
   }
 
+  nextPage() {
+    this.page += 1;
+    this.fetchForks();
+  }
+
+  previousPage() {
+    if (this.page > 1) {
+      this.page -= 1;
+      this.fetchForks();
+    }
+  }
 }
