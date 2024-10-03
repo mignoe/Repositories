@@ -1,3 +1,4 @@
+
 export class Fork {
     owner: Owner;
     id: number;
@@ -42,3 +43,4 @@ export class Owner {
         this.avatar_url = `https://avatars.githubusercontent.com/u/${id}`;
     }
 }
+
