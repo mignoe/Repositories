@@ -11,13 +11,13 @@ export const groupBy = <T>(colecao: T[], atributo: keyof T): { [key: string]: T[
       const key = obj[atributo] as unknown as string;
       return {
         ...acc,
-        [key]: [...(acc[key] || []), obj] // Create a new array for immutability
+        [key]: [...(acc[key] || []), obj]
       };
     }, {} as { [key: string]: T[] });
   
 
 export const orderBy = <T>(colecao: T[], atributo: keyof T): T[] => 
-[...colecao].sort((a, b) => (a[atributo] > b[atributo] ? 1 : -1));
+[...colecao].sort((a, b) => (b[atributo] > a[atributo] ? 1 : -1));
 
 
 export const compose = (...fns: Function[]) => (arg: any) =>
