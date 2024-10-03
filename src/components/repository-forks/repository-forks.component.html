@@ -1,31 +1,40 @@
-<p>repository-forks works!</p>
-<p>Repository:</p>
-    <div>
-        <input type="text" [(ngModel)]="repository" placeholder="Enter the GitHub repository in the format: <github username>/<repository name>" />
-            <button (click)="search()">Search</button>
-            <button (click)="orderForksBy('stargazers_count')">Order by Stars</button>
-            
-            <div class="forks-container">
-                <div *ngFor="let fork of forks" class="fork">
-                    <div class="fork-header">
-                        <img [src]="fork.owner.avatar_url" alt="Owner Avatar" class="fork-avatar" />
-                        <a [href]="fork.html_url" class="fork-name">{{ fork.full_name }}</a>
-                    </div>
-                    <p class="fork-owner">Owner: <span>{{ fork.owner.login }}</span></p>
-                    <p class="fork-description">Description: <span>{{ fork.description || 'No description available.' }}</span></p>
-                    <p class="fork-stars">Stars: <span>{{ fork.stargazers_count }}</span></p>
-                    <p class="fork-count">Forks: <span>{{ fork.forks_count }}</span></p>
-                    <p class="last-updated">Last Updated: <span>{{ fork.updated_at | date: 'yyyy-MM-dd' }}</span></p>
-                    <p class="license">License: <span>{{ fork.license?.name || 'No license specified' }}</span></p>
-                </div>
-            </div>
-            
-            <!-- Pagination Controls -->
-            <div class="pagination-controls">
-                <button (click)="previousPage()" [disabled]="page === 1">Previous</button>
-                <span>Page: {{ page }}</span>
-                <button (click)="nextPage()">Next</button>
-            </div>
-            
-        
+<div class="container">
+    <div class="search-container">
+        <mat-form-field appearance="outline" class="search-input">
+            <mat-label>Repository</mat-label>
+            <input matInput [(ngModel)]="repository"
+                placeholder="Enter the GitHub repository in the format: <github username>/<repository name>" />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="search()">Search</button>
+        <button mat-raised-button color="accent" (click)="orderForksBy('stargazers_count')">Order by Stars</button>
     </div>
+
+    <div class="forks-container" style="margin-top: 20px;">
+        <mat-card *ngFor="let fork of forks" class="fork" style="margin-bottom: 10px;">
+            <mat-card-header>
+                <div mat-card-avatar>
+                    <img [src]="fork.owner.avatar_url" alt="Owner Avatar" class="fork-avatar" />
+                </div>
+                <mat-card-title>
+                    <a [href]="fork.html_url" class="fork-name">{{ fork.full_name }}</a>
+                </mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+                <p class="fork-owner">Owner: <span>{{ fork.owner.login }}</span></p>
+                <p class="fork-description">Description: <span>{{ fork.description || 'No description available.' }}</span></p>
+                <p class="fork-stars">Stars: <span>{{ fork.stargazers_count }}</span></p>
+                <p class="fork-count">Forks: <span>{{ fork.forks_count }}</span></p>
+                <p class="last-updated">Last Updated: <span>{{ fork.updated_at | date: 'yyyy-MM-dd' }}</span></p>
+                <p class="license">License: <span>{{ fork.license?.name || 'No license specified' }}</span></p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <mat-paginator [length]="totalItems" 
+    [pageSize]="perPage" 
+    [pageSizeOptions]="[9, 18, 36]"
+    (page)="onPageChange($event)" >
+    </mat-paginator>
+</div>
