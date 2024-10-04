@@ -10,10 +10,11 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Fork } from '../models/fork.model';
-import { distinct, orderBy } from '../utils/utils';
 import { GithubService } from '../service/github.service';
 import { map, tap, catchError, of } from 'rxjs';
 import { MatSelectModule } from '@angular/material/select';
+
+import { distinct, orderBy, fold } from '../utils/utils';
 
 @Component({
   selector: 'app-fork',
@@ -38,6 +39,10 @@ export class ForkComponent {
   repository = '';
   forks: Fork[] = [];
   filteredForks: Fork[] = [];
+
+
+  isSumDone = false;  // Controls when the element that displays the sum of stars should be shown
+  totalStars: number = 0; 
 
   page = 0;
   perPage = 100;
@@ -133,5 +138,10 @@ export class ForkComponent {
   onSearchChange() {
     this.page = 0;
     this.applyFilter();
+  }
+
+  sumStars(): void {
+    this.totalStars = fold((acc, fork) => acc + fork.stargazers_count, 0, this.filteredForks);
+    this.isSumDone = true;
   }
 }

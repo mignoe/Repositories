@@ -32,6 +32,11 @@
         </mat-select>
       </mat-form-field>
 
+      <button mat-raised-button color="accent" (click)="sumStars()">Sum Stars</button>
+      <div *ngIf="isSumDone" class="result">
+        <p>Total Stars: {{ totalStars }}</p>
+      </div>
+
     </div>
   </div>
 </mat-card>
