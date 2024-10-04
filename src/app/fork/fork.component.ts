@@ -61,6 +61,9 @@ export class ForkComponent {
     this.page = 0;
     this.fetchForks();
     this.getCountForks();
+    this.totalStars = 0;
+    this.isSumDone = false;
+    this.licenseGroupedAndSortedForks = [];
   }
 
   fetchForks() {
