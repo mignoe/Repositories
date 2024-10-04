@@ -53,6 +53,8 @@ export class ForkComponent {
   searchQuery = '';
   selectedOrder = '';
 
+  showForks = true;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private githubService: GithubService) {}
@@ -64,6 +66,7 @@ export class ForkComponent {
     this.totalStars = 0;
     this.isSumDone = false;
     this.licenseGroupedAndSortedForks = [];
+    this.showForks = true;
   }
 
   fetchForks() {
@@ -171,6 +174,7 @@ export class ForkComponent {
     );
   
     this.licenseGroupedAndSortedForks =  groupedAndSorted(this.filteredForks);
+    this.showForks = false;
     console.log(this.licenseGroupedAndSortedForks)
     console.log(((forks: Fork[]) => Object.entries(groupBy(this.filteredForks, 'licenseName')))(this.filteredForks))
   }

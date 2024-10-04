@@ -44,7 +44,7 @@
 </mat-card>
 
 <mat-card>
-  <div class="forks-container" style="margin-top: 20px;">
+  <div class="forks-container" *ngIf="showForks" style="margin-top: 20px;">
     <mat-card *ngFor="let fork of filteredForks" class="fork" style="margin-bottom: 10px;">
       <mat-card-header>
         <div mat-card-avatar>
