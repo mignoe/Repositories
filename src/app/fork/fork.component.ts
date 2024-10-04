@@ -144,4 +144,8 @@ export class ForkComponent {
     this.totalStars = fold((acc, fork) => acc + fork.stargazers_count, 0, this.filteredForks);
     this.isSumDone = true;
   }
+
+  invertForks(): void {
+    this.filteredForks = fold<Fork, Fork[]>((acc, fork) => [fork, ...acc], [], this.filteredForks);
+  }
 }
