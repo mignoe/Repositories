@@ -40,7 +40,7 @@ export class ForkComponent {
   filteredForks: Fork[] = [];
 
   page = 0;
-  perPage = 30;
+  perPage = 100;
   totalItems = 0;
   isLoading = false;
   searchQuery = '';
