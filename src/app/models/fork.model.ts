@@ -9,6 +9,8 @@ export class Fork {
     forks_count: number;
     updated_at: string;
     license?: { name: string }; // Optional property
+    licenseName: string;
+    ownerLogin: string;
 
     constructor(
         owner: Owner,
@@ -22,6 +24,8 @@ export class Fork {
         license?: { name: string }
     ) {
         this.owner = owner;
+        this.ownerLogin = owner.login;
+        this.licenseName = license?.name || 'No License';
         this.id = id;
         this.html_url = html_url;
         this.full_name = full_name;

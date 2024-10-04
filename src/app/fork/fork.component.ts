@@ -14,7 +14,7 @@ import { GithubService } from '../service/github.service';
 import { map, tap, catchError, of } from 'rxjs';
 import { MatSelectModule } from '@angular/material/select';
 
-import { distinct, orderBy, fold } from '../utils/utils';
+import { distinct, orderBy, fold, groupBy, compose } from '../utils/utils';
 
 @Component({
   selector: 'app-fork',
@@ -39,6 +39,8 @@ export class ForkComponent {
   repository = '';
   forks: Fork[] = [];
   filteredForks: Fork[] = [];
+
+  licenseGroupedAndSortedForks: any[] = []; // This variable should be used to store the grouped and sorted forks
 
 
   isSumDone = false;  // Controls when the element that displays the sum of stars should be shown
@@ -148,4 +150,26 @@ export class ForkComponent {
   invertForks(): void {
     this.filteredForks = fold<Fork, Fork[]>((acc, fork) => [fork, ...acc], [], this.filteredForks);
   }
+
+  groupForkByLicensesAndSortByStars(): void {
+    const groupedAndSorted = compose(
+      (forks: Fork[]) =>
+        forks.map(fork => ({
+          ...fork,
+          licenseName: fork.license?.name || 'No License' // Add licenseName property
+        })),
+      (forks: Fork[]) => Object.entries(groupBy(forks, 'licenseName')),
+      (groupedForks: [string, Fork[]][]) =>
+        groupedForks.map(([key, forks]) => ({
+          license: key,
+          forks: orderBy(forks, 'stargazers_count'),
+        }))
+      
+    );
+  
+    this.licenseGroupedAndSortedForks =  groupedAndSorted(this.filteredForks);
+    console.log(this.licenseGroupedAndSortedForks)
+    console.log(((forks: Fork[]) => Object.entries(groupBy(this.filteredForks, 'licenseName')))(this.filteredForks))
+  }
+  
 }

@@ -12,7 +12,7 @@ export class GithubService {
   getRepositoriesForks(repository: string, page: number, perPage: number): Observable<any[]> {
     const headers = new HttpHeaders({
         "Content-Type": "application/json",
-        Authorization: "Bearer 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",
+        Authorization: "Bearer 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",
       });
     const url = `https://api.github.com/repos/${repository}/forks?page=${page}&per_page=${perPage}`
     return this.http.get<any[]>(url, { headers: headers });
@@ -21,7 +21,7 @@ export class GithubService {
   getRepository(repository: string): Observable<any> {
     const headers = new HttpHeaders({
         "Content-Type": "application/json",
-        Authorization: "Bearer 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",
+        Authorization: "Bearer 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",
       });
     const url = `https://api.github.com/repos/${repository}`
     return this.http.get<any>(url, { headers: headers });
