@@ -93,7 +93,7 @@ export class ForkComponent {
 
   getCountForks() {
     this.githubService
-      .getRepository(this.repository)
+      .getRepository(this.repository, this.token)
       .pipe(
         map((response) => {
           this.totalItems = response?.forks;
