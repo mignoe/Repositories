@@ -13,6 +13,14 @@
           placeholder="Enter the GitHub repository in the format: <github username>/<repository name>"
         />
       </mat-form-field>
+      <mat-form-field appearance="outline" class="search-input">
+        <mat-label>Token</mat-label>
+        <input
+          matInput
+          [(ngModel)]="token"
+          placeholder="Enter the GitHub token to access the api"
+        />
+      </mat-form-field>
       <button mat-raised-button color="primary" (click)="search()">Search</button>
     </div>
   

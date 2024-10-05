@@ -37,6 +37,7 @@ import { distinct, orderBy, fold, groupBy, compose } from '../utils/utils';
 export class ForkComponent {
   
   repository = '';
+  token = '';
   forks: Fork[] = [];
   filteredForks: Fork[] = [];
 
@@ -73,7 +74,7 @@ export class ForkComponent {
     this.startLoading();
     console.log(this.page, this.perPage);
     this.githubService
-      .getRepositoriesForks(this.repository, this.page, this.perPage)
+      .getRepositoriesForks(this.repository, this.page, this.perPage, this.token)
       .pipe(
         map((response) => distinct(response, 'id')),
         tap((forks) => {

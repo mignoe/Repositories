@@ -9,10 +9,10 @@ export class GithubService {
   
   constructor(private http: HttpClient) { }
 
-  getRepositoriesForks(repository: string, page: number, perPage: number): Observable<any[]> {
+  getRepositoriesForks(repository: string, page: number, perPage: number, token: string): Observable<any[]> {
     const headers = new HttpHeaders({
         "Content-Type": "application/json",
-        Authorization: "Bearer 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",
+        Authorization: "Bearer ", token
       });
     const url = `https://api.github.com/repos/${repository}/forks?page=${page}&per_page=${perPage}`
     return this.http.get<any[]>(url, { headers: headers });
